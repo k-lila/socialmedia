@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    {% if profile %}
+        <h1>Perfil de {{ profile.user.username }} </h1>
+        <strong>Seguindo</strong><br>
+        {% for following in profile.follows.all %}
+            <a href="{% url 'profile' following.user.id %}">
+                @{{ following }}
+            </a><br>
+        {% endfor %}
+        <strong>Seguidores</strong><br>
+        {% for following in profile.followed_by.all %}
+            <a href="{% url 'profile' following.user.id %}">
+                @{{ following }}
+            </a><br>
+        {% endfor %}
+        <form method="POST">
+            {% csrf_token %}
+            {% if profile in user.profile.follows.all %}
+                <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit"> - @{{ profile.user.username }}</button>
+            {% else %}
+                <button class="btn btn-outline-success" name="follow" value="follow" type="submit"> + @{{ profile.user.username }}</button>
+            {% endif %}
+        </form>
+        {% if posts %}
+            {% for post in posts %}
+                <div class="alert alert-dark" role="alert">
+                    {{ post.body }}<br/>
+                    <small class="text-muted">{{ post.created_at }} by @{{ post.user.username }}</small>
+                </div><br/>
+            {% endfor %}
+        {% endif %}
+
+    {% endif %}
+{% endblock %}
