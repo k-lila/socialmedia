@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from ..models import Post
-from ..forms import PostForm
+from ..forms.PostForm import PostForm
 
 
 def home(request):
