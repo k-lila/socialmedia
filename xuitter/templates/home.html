@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
     {% if form %}
@@ -10,8 +11,30 @@
     {% endif %}
     {% for post in posts %}
         <div class="alert alert-dark" role="alert">
-            {{ post.body }}<br/>
-            <small class="text-muted">{{ post.created_at }} by @{{ post.user.username }}</small>
+            <div class="container">
+                <div class="row">
+                    <div class="col-2">
+                        {% if post.user.profile.profile_image %}
+                            <img src="{{ post.user.profile.profile_image.url }}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+                        {% else %}
+                            <img src="{% static 'images/default_user.png' %}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+                        {% endif %}
+                    </div>
+                    <div class="col-8">
+                        {{ post.body }}<br/>
+                    </div>
+                    <div class="row">
+                        <small class="text-muted">{{ post.created_at }} by @{{ post.user.username }}</small>
+                    </div>
+                </div>
+            </div>
         </div><br/>
     {% endfor %}
 {% endblock %}
+
+
+
+
+
+
+
