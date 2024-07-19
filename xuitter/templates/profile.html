@@ -7,6 +7,14 @@
             <img style="width: 250px; height: 250px; border-radius: 100%" src="{{ profile.profile_image.url }}">
         <br/>
         {% endif %}
+        {% if profile.profile_website %}
+            <a href="{{ profile.profile_website }}" target="_blank">website</a>
+        {% endif %}
+        {% if profile.profile_bio %}
+            <p>
+                {{ profile.profile_bio }}
+            </p>
+        {% endif %}
         <strong>Seguindo</strong><br>
         {% for following in profile.follows.all %}
             <a href="{% url 'profile' following.user.id %}">
