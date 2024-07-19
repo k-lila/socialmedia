@@ -52,3 +52,9 @@ class SignUpForm(UserCreationForm):
         self.fields["password2"].help_text = (
             '<span class="form-text text-muted"><small>Enter the same password as before, for verification.</small></span>'
         )
+
+    def clean_username(self):
+        username = self.cleaned_data.get("username")
+        if User.objects.filter(username=username).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("nome de usuário já existe")
+        return username
