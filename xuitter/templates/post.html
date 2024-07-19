@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="alert alert-dark" role="alert">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    {% if post.user.profile.profile_image %}
+                        <img src="{{ post.user.profile.profile_image.url }}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+                    {% else %}
+                        <img src="{% static 'images/default_user.png' %}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+                    {% endif %}
+                </div>
+                <div class="col-8">
+                    {{ post.body }}<br/>
+                </div>
+                <div class="row">
+                    <small class="text-muted" style="display: flex; align-items: center;">
+                        {{ post.created_at }} by
+                        @{{ post.user.username }} -
+                        {{ post.count_likes }}  likes |
+                        {% if user in post.likes.all %}
+                            <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
+                                <span style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
+                                    heart_check
+                                </span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
+                                <span style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
+                                    heart_plus
+                                </span>
+                            </a>
+                        {% endif %}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div><br/>
+{% endblock %}
