@@ -24,17 +24,32 @@
                         {{ post.body }}<br/>
                     </div>
                     <div class="row">
-                        <small class="text-muted">{{ post.created_at }} by @{{ post.user.username }}</small>
+                        <small class="text-muted" style="display: flex; align-items: center;">
+                            {{ post.created_at }} by
+                            @{{ post.user.username }} -
+                            {{ post.count_likes }}  likes |
+                            {% if user in post.likes.all %}
+                                <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
+                                    <i style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
+                                        heart_check
+                                    </i>
+                                </a>
+                            {% else %}
+                                <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
+                                    <i style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
+                                        heart_plus
+                                    </i>
+                                </a>
+                            {% endif %}
+                            <a href="{% url 'post' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
+                                <i style="color: grey; font-size: 1.25em !important;" class="material-symbols-outlined">
+                                    share
+                                </i>
+                            </a>
+                        </small>
                     </div>
                 </div>
             </div>
         </div><br/>
     {% endfor %}
 {% endblock %}
-
-
-
-
-
-
-
