@@ -14,7 +14,10 @@
         <div class="mb-3">
             <input type="password" class="form-control" name="password" placeholder="senha">
         </div>
-        <button type="submit" class="btn btn-secondary">login</button>
+        <div class="d-flex" style="justify-content: space-between;">
+            <button type="submit" class="btn btn-secondary">login</button>
+            <a href="{% url 'register' %}" class="btn btn-secondary">cadastrar</a>
+        </div>
     </form>
 </div>
 {% endif %}

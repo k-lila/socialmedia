@@ -17,5 +17,5 @@ def profile(request, pk):
             current_user_profile.save()
         return render(request, "profile.html", {"profile": profile, "posts": posts})
     else:
-        messages.success(request, ("Você precisa estar logado para continuar"))
+        messages.success(request, ("você precisa estar logado para continuar"))
         return redirect("home")
