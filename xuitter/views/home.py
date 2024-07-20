@@ -13,10 +13,14 @@ def home(request):
                 post = form.save(commit=False)
                 post.user = request.user
                 post.save()
-                messages.success(request, ("Seu post foi publicado!"))
+                messages.success(request, ("seu post foi publicado!"))
                 return redirect("home")
-        posts = Post.objects.all().order_by("-created_at")
+        # posts = Post.objects.all().order_by("-created_at")
+        followed_profiles = request.user.profile.follows.all()
+        posts = Post.objects.filter(user__profile__in=followed_profiles).order_by(
+            "-created_at"
+        )
+
         return render(request, "home.html", {"posts": posts, "form": form})
     else:
-        posts = Post.objects.all().order_by("-created_at")
-        return render(request, "home.html", {"posts": posts})
+        return redirect("login")

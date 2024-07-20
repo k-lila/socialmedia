@@ -8,17 +8,31 @@
 {% for profile in profiles %}
     <div class="card mb-3" style="max-width: 540px;">
         <div class="row g-0">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 {% if profile.profile_image %}
-                <img src="{{ profile.profile_image.url }}" style="max-width: 150px; max-height: 150px" class="img-fluid rounded-start" alt="Profile picture">
+                <img src="{{ profile.profile_image.url }}" style="max-width: 100px; max-height: 100px" class="img-fluid rounded-start" alt="Profile picture">
                 {% else %}
-                <img src="{% static 'images/default_user.png' %}" class="img-fluid rounded-start" alt="Profile picture">
+                <img src="{% static 'images/default_user.png' %}" style="max-width: 100px; max-height: 100px" class="img-fluid rounded-start" alt="Profile picture">
                 {% endif %}
             </div>
-            <div class="col-md-8">
+            <div class="col-md-9 d-flex" style="align-items: center;">
                 <div class="card-body">
-                    <h5 class="card-title">{{ profile.user.username }}</h5>
-                    <p class="card-text"><a href="{% url 'profile' profile.user.id %}">@{{ profile.user.username|lower }}</a></p>
+                    <h5 class="card-title d-flex" style="justify-content: space-between;">
+                        <a href="{% url 'profile' profile.user.id %}">@{{ profile.user.username }}</a>
+                        {% if profile.id in followed_ids %}
+                        <a href="{% url 'unfollow' profile.user.id %}" class="btn btn-outline-danger" style="display: flex; justify-content: center; align-items: center; width: 1.5em; height: 1.5em;">
+                            <i class="material-symbols-outlined" style="font-size: 1em;">
+                                remove
+                            </i>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'follow' profile.user.id %}" class="btn btn-outline-success" style="display: flex; justify-content: center; align-items: center; width: 1.5em; height: 1.5em;">
+                            <i class="material-symbols-outlined" style="font-size: 1em;">
+                                add
+                            </i>
+                        </a>
+                        {% endif %}
+                    </h5>
                     <p class="card-text"><small class="text-body-secondary">Last updated {{ profile.date_modified }}</small></p>
                 </div>
             </div>
