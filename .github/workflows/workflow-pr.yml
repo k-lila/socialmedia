@@ -1,0 +1,26 @@
+name: Python Pull Request Workflow
+on: [push]
+jobs:
+  qa:
+    name: Quality check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@master
+        with:
+          python-version: 3.12.1
+      - name: dependencies
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: test
+        run: |
+          pytest
+      - name: Wemake Python Stylguide
+        uses: wemake-services/wemake-python-styleguide@0.16.0
+        continue-on-error: true
+        with:
+          reporter: 'github-pr-review'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
