@@ -1,2 +1,2 @@
-from .profile import Profile
+from .profile import Profile, create_profile
 from .post import Post
