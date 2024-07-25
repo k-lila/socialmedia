@@ -3,53 +3,51 @@
 
 {% block content %}
 {% if form %}
-<form method="POST">
+<form method="POST" class="post-form">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit" class="btn btn-secondary">Postar</button>
+    <button type="submit" class="btn btn-secondary m-3">Postar</button>
 </form>
 {% endif %}
 {% for post in posts %}
-<div class="alert alert-dark" role="alert">
-    <div class="container">
+<div class="post bg-light">
+    <div class="row">
+        <div class="col-2 post__img">
+            {% if post.user.profile.profile_image %}
+            <img src="{{ post.user.profile.profile_image.url }}" alt="Profile picture">
+            {% else %}
+            <img src="{% static 'images/default_user.png' %}" alt="Profile picture">
+            {% endif %}
+        </div>
+        <div class="col-8 post__body">
+            {{ post.body }}
+        </div>
         <div class="row">
-            <div class="col-2">
-                {% if post.user.profile.profile_image %}
-                <img src="{{ post.user.profile.profile_image.url }}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+            <small class="text-muted post_footer">
+                {{ post.created_at }} by
+                @{{ post.user.username }} -
+                {{ post.count_likes }}  likes |
+                {% if user in post.likes.all %}
+                <a href="{% url 'post_like' post.id %}">
+                    <i style="color: red;" class="material-symbols-outlined">
+                        heart_check
+                    </i>
+                </a>
                 {% else %}
-                <img src="{% static 'images/default_user.png' %}" style="max-width: 50px; max-height: 50px" class="img-fluid rounded-start" alt="Profile picture">
+                <a href="{% url 'post_like' post.id %}">
+                    <i style="color: red;" class="material-symbols-outlined">
+                        heart_plus
+                    </i>
+                </a>
                 {% endif %}
-            </div>
-            <div class="col-8">
-                {{ post.body }}<br/>
-            </div>
-            <div class="row">
-                <small class="text-muted" style="display: flex; align-items: center;">
-                    {{ post.created_at }} by
-                    @{{ post.user.username }} -
-                    {{ post.count_likes }}  likes |
-                    {% if user in post.likes.all %}
-                    <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
-                        <i style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
-                            heart_check
-                        </i>
-                    </a>
-                    {% else %}
-                    <a href="{% url 'post_like' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
-                        <i style="color: red; font-size: 1.25em !important;" class="material-symbols-outlined">
-                            heart_plus
-                        </i>
-                    </a>
-                    {% endif %}
-                    <a href="{% url 'post' post.id %}" style="display: flex; text-decoration: none; justify-content: center; align-items: center;">
-                        <i style="color: grey; font-size: 1.25em !important;" class="material-symbols-outlined">
-                            share
-                        </i>
-                    </a>
-                </small>
-            </div>
+                <a href="{% url 'post' post.id %}">
+                    <i style="color: grey;" class="material-symbols-outlined">
+                        share
+                    </i>
+                </a>
+            </small>
         </div>
     </div>
-</div><br/>
+</div>
 {% endfor %}
 {% endblock %}

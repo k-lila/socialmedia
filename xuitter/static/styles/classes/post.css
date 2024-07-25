@@ -1,0 +1,44 @@
+.post {
+    width: fit-content;
+    margin: 1.25em 0;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+
+.post__img {
+    width: min-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post__img img {
+    border-radius: 100%;
+    width: 7vmin;
+    height: 7vmin;
+}
+
+.post__body {
+    display: flex;
+    align-items: center;
+    width: 80%;
+}
+
+.post_footer {
+    display: flex;
+    align-items: center;
+    margin-left: 0.5em;
+    margin-top: 0.5em;
+}
+
+.post_footer a {
+    display: flex;
+    text-decoration: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.post_footer i {
+    font-size: 1.25em !important;
+    margin-left: 10px;
+}

@@ -1,0 +1,18 @@
+.post-form {
+    max-width: 75%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 0;
+    height: 150px;
+}
+
+.post-form p {
+    height: 100%;
+    margin: auto 0;
+}
+
+.post-form__form {
+    height: 100%;
+}
