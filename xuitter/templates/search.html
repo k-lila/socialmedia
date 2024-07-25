@@ -4,37 +4,39 @@
 
 
 <h1>busca</h1>
-<form  method=POST>
+<form method=POST class="m-3">
     {% csrf_token %}
     <input type="input" class="form-control"  placeholder="busca por posts" name="search">
-    <button type="submit" class="btn btn-secondary">busca por posts</button>
+    <button type="submit" class="btn btn-secondary mt-3">buscar posts</button>
 </form>
 {% if search %}
-<h3>procurando por: {{ search }}</h3>
+<h3 class="text-light">procurando por: {{ search }}</h3>
 {% for post in searched %}
-<div class="alert alert-dark" role="alert">
-    <div class="container">
+<div class="post bg-light">
+    <div class="row">
+        <div class="col-2 post__img">
+            {% if post.user.profile.profile_image %}
+            <img src="{{ post.user.profile.profile_image.url }}" alt="Profile picture">
+            {% else %}
+            <img src="{% static 'images/default_user.png' %}" alt="Profile picture">
+            {% endif %}
+        </div>
+        <div class="col-8 post__body">
+            {{ post.body }}
+        </div>
         <div class="row">
-            <div class="col-1">
-                {% if post.user.profile.profile_image %}
-                <img src="{{ post.user.profile.profile_image.url }}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">
-                {% else %}
-                <img src="{% static 'images/default_user.png' %}" width=50 height=50 class="rounded-circle" alt="{{ profile.user.username }}">	
-                {% endif %}
-            </div>
-            <div class="col-11">
-                {{ post.body }}
-                <small class="text-muted">
-                    ({{ post.created_at}}) By
-                    @{{ post.user.username }}
-                    {{ post.number_of_likes }}
-                    <a href="{% url 'post' post.id %}">
+            <small class="text-muted post_footer">
+                {{ post.created_at }} by
+                @{{ post.user.username }} -
+                {{ post.count_likes }}  likes |
+                <a href="{% url 'post' post.id %}">
+                    <i style="color: grey;" class="material-symbols-outlined">
                         share
-                    </a>
-                </small>
-            </div>
-        </div>    
-    </div>
+                    </i>
+                </a>
+            </small>
+        </div>
+    </div>    
 </div>
 {% endfor %}
 {% endif %}

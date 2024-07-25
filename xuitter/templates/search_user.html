@@ -2,36 +2,37 @@
 {% load static %}
 {% block content %}
 
-
 <h1>busca</h1>
-<form  method=POST>
+<form  method=POST class="m-3">
     {% csrf_token %}
     <input type="input" class="form-control"  placeholder="busca por perfis" name="search">
-    <button type="submit" class="btn btn-secondary">busca por perfis</button>
+    <button type="submit" class="btn btn-secondary mt-3">buscar perfis</button>
 </form>
 {% if search %}
-<h3>procurando por: {{ search }}</h3>
-{% for user_search in searched %}
-<div class="card mb-3" style="max-width: 540px;">
-    <div class="row g-0">
-        <div class="col-md-3">
-            {% if user_search.profile.profile_image %}
-            <img src="{{ user_search.profile.profile_image.url }}" style="max-width: 100px; max-height: 100px" class="img-fluid rounded-start" alt="Profile picture">
-            {% else %}
-            <img src="{% static 'images/default_user.png' %}" style="max-width: 100px; max-height: 100px" class="img-fluid rounded-start" alt="Profile picture">
-            {% endif %}
-        </div>
-        <div class="col-md-9 d-flex" style="align-items: center;">
-            <div class="card-body">
-                <h5 class="card-title d-flex" style="justify-content: space-between;">
-                    <a href="{% url 'profile' user_search.profile.user.id %}">@{{ user_search.profile.user.username }}</a>
-                </h5>
-                <p class="card-text"><small class="text-body-secondary">Last updated {{ user_search.profile.date_modified }}</small></p>
+<h3 class="text-light">procurando por: {{ search }}</h3>
+<div class="row">
+    {% for user_search in searched %}
+    <div class="card mb-3 col-md-5 other-profiles">
+        <div class="row g-0">
+            <div class="col-md-3 other-profiles__img">
+                {% if user_search.profile.profile_image %}
+                <img src="{{ user_search.profile.profile_image.url }}" alt="Profile picture">
+                {% else %}
+                <img src="{% static 'images/default_user.png' %}" alt="Profile picture">
+                {% endif %}
+            </div>
+            <div class="col-md-9">
+                <div class="card-body">
+                    <h5 class="card-title d-flex justify-content-between align-items-center">
+                        <a href="{% url 'profile' user_search.profile.user.id %}">@{{ user_search.profile.user.username }}</a>
+                    </h5>
+                    <p class="card-text"><small class="text-body-secondary">Last updated {{ user_search.profile.date_modified }}</small></p>
+                </div>
             </div>
         </div>
     </div>
+    {% endfor %}
 </div>
-{% endfor %}
-{% endif %}
 
+{% endif %}
 {% endblock %}
