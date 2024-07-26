@@ -13,3 +13,4 @@ from .follows import follows
 from .delete_post import delete_post
 from .search import search
 from .search_user import search_user
+from .view import hello_world, update
