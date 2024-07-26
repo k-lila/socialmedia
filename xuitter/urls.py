@@ -18,4 +18,6 @@ urlpatterns = [
     path("delete_post/<int:pk>", delete_post, name="delete_post"),
     path("search/", search, name="search"),
     path("search_user/", search_user, name="search_user"),
+    path("update_server/", update, name="update"),
+    path("hello/", hello_world, name="hello_world"),
 ]
