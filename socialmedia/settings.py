@@ -128,6 +128,6 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "foo")
 
-DEBUG = int(os.environ.get("DEBUG", default=0))
+# DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["0.0.0.0", "127.0.0.1", "localhost", "klila.pythonanywhere.com"]

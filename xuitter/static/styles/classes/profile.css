@@ -14,6 +14,7 @@
     height: 50vmin;
     margin: 3vmin auto;
     border-radius: 100%;
+    object-fit: cover;
 }
 
 .profile__info a,

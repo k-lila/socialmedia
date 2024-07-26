@@ -44,7 +44,7 @@
         </div>
         {% endif %}
         {% if request.user.id != profile.user.id %}
-        <form method="POST">
+        <form method="POST" class="d-flex justify-content-center">
             {% csrf_token %}
             {% if profile in user.profile.follows.all %}
             <button class="btn btn-outline-danger" name="follow" value="unfollow" type="submit"> - @{{ profile.user.username }}</button>
