@@ -7,6 +7,7 @@ ENV PYTHONUNBUFFERED=1 \
     PIP_DEFAULT_TIMEOUT=100
 
 RUN apt-get update && \
+    apt-get install -y git && \
     apt-get install --no-install-recommends -y \
         libpq-dev \
         gcc \
